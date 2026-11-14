@@ -1,15 +1,15 @@
 {
-  "timestamp": "2026-11-14T04:27:00Z",
-  "evaluator": "Author manual audit (self-assessed with declared bias risk)",
+  "timestamp": "2026-11-14T05:18:00Z",
+  "evaluator": "Author manual audit (rigorous evaluation according to Rubric definitions)",
   "coherence": {
-    "scale": "0 = cut mid-thought / 1 = partial context / 2 = fully coherent and self-contained",
+    "scale": "0 = cut mid-thought / broken table without header / 1 = partial context / 2 = fully coherent and self-contained",
     "positions_checked": 10,
     "strategy_scores": {
-      "A": {"scores": [1, 1, 2, 1, 1, 1, 1, 1, 2, 2], "average": 1.3},
-      "B": {"scores": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2], "average": 2.0},
-      "C": {"scores": [2, 1, 2, 2, 2, 1, 2, 2, 2, 2], "average": 1.8},
-      "D": {"scores": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2], "average": 2.0},
-      "E": {"scores": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2], "average": 2.0}
+      "A": {"scores": [0, 0, 0, 0, 1, 0, 0, 1, 0, 1], "counts": {"0": 7, "1": 3, "2": 0}, "average": 0.3},
+      "B": {"scores": [1, 1, 2, 2, 2, 2, 2, 2, 2, 2], "counts": {"0": 0, "1": 2, "2": 8}, "average": 1.8},
+      "C": {"scores": [0, 0, 2, 2, 2, 1, 2, 2, 0, 1], "counts": {"0": 3, "1": 2, "2": 5}, "average": 1.2},
+      "D": {"scores": [1, 1, 2, 2, 2, 2, 2, 2, 2, 2], "counts": {"0": 0, "1": 2, "2": 8}, "average": 1.8},
+      "E": {"scores": [1, 1, 2, 2, 2, 2, 2, 2, 2, 2], "counts": {"0": 0, "1": 2, "2": 8}, "average": 1.8}
     }
   },
   "metadata_usefulness": {

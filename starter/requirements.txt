@@ -1,22 +1,4 @@
-# ==============================================================================
-# Day 06 · Data Ingestion Engineering — Python Dependencies (Starter)
-# Environment: Python 3.10+ (Recommended: Python 3.10 - 3.12)
-# ==============================================================================
-
-# 1. Document Ingestion, OCR & Extraction
-docling>=2.0.0
-pymupdf>=1.24.0
-pypdf>=5.0.0
-
-# 2. Embedding Model & NLP (BGE-M3)
-torch>=2.0.0
-transformers>=4.40.0
-FlagEmbedding>=1.2.0
-
-# 3. Vector Database & Storage (Qdrant)
-qdrant-client>=1.12.0
-
-# 4. Core Utilities & Networking
-python-dotenv>=1.0.0
-requests>=2.31.0
-tqdm>=4.66.0
+# Core setup and PDF parsing. Choose and install an embedding SDK separately.
+psycopg[binary]==3.3.8
+pypdf>=5,<7
+python-dotenv>=1,<2

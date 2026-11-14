@@ -1,0 +1,22 @@
+<!-- PAGE_START: 17 (Form 10-Q Page 19) -->
+## [Trang PDF 17 / Form 10-Q Trang 19] — Management’s Discussion and Analysis
+
+## Item 2. Management's Discussion and Analysis of Financial Condition and Results of Operations
+
+## Forward-Looking Statements
+
+This Quarterly Report on Form 10-Q contains forward-looking statements within the meaning of the federal securities laws. These forward-looking statements include, but are not limited to, statements regarding: our core strategy; our ability to improve our content offerings and service; our future financial performance, including expectations regarding revenues, deferred revenue, operating income and margin, net income, expenses, and profitability; liquidity, including the sufficiency of our capital resources, net cash provided by (used in) operating activities, access to financing sources, and free cash flows; capital allocation strategies, including any stock repurchases or repurchase programs; seasonality; stock price volatility; impact of foreign exchange rate fluctuations, including on net income, revenues and average revenues per paying member; impact of interest rate fluctuations; adequacy of existing facilities; future regulatory changes and their impact on our business; intellectual property; price changes and testing; accounting treatment for changes related to content assets; acquisitions; membership growth, including impact of content and pricing changes on membership growth; partnerships; member viewing patterns; dividends; future contractual obligations, including unknown content obligations and timing of payments; our global content and marketing investments, including investments in original programming; impact of work stoppages; content amortization; resolution of tax examinations; tax expense; unrecognized tax benefits; deferred tax assets; and our ability to effectively manage change and growth. These forward-looking statements are subject to risks and uncertainties that could cause actual results and events to differ materially from those included in forward-looking statements. Factors that might cause or contribute to such differences include, but are not limited to, those discussed in our Annual Report on Form 10-K for the year ended December 31, 2022 filed with the Securities and Exchange Commission ('SEC') on January 26, 2023, in particular the risk factors discussed under the heading 'Risk Factors' in Part I, Item 1A.
+
+We assume no obligation to revise or publicly release any revision to any forward-looking statements contained in this Quarterly Report on Form 10-Q, unless required by law.
+
+Investors and others should note that we announce material financial information to our investors using our investor relations website ( ir .netflix.net ), SEC filings, press releases, public conference calls and webcasts. We use these channels, as well as social media and blogs to communicate with our members and the public about our company, our services and other issues. It is possible that the information we post on social media and blogs could be deemed to be material information. Therefore, we encourage investors, the media, and others interested in our company to review the information we post on the social media channels and blogs listed on our investor relations website.
+
+## Overview
+
+We are one of the world's leading entertainment services with over 238 million paid memberships in over 190 countries enjoying TV series, films and games across a wide variety of genres and languages. Members can play, pause and resume watching as much as they want, anytime, anywhere, and can change their plans at any time.
+
+Our core strategy is to grow our business globally within the parameters of our operating margin target. We strive to continuously improve our members' experience by offering compelling content that delights them and attracts new members. We seek to drive conversation around our content to further enhance member joy, and we are continuously enhancing our user interface to help our members more easily choose content that they will find enjoyable.
+
+Our membership growth exhibits a seasonal pattern that reflects variations when consumers buy internet-connected screens and when they tend to increase their viewing. Historically, the fourth quarter represents our greatest streaming membership growth. In addition, our membership growth can be impacted by our content release schedule and changes to pricing.
+
+<!-- PAGE_END: 17 -->

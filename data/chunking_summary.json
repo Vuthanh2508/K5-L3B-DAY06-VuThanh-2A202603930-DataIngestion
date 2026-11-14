@@ -1,0 +1,117 @@
+{
+  "A": {
+    "name": "Strategy A: Fixed-Size Token Window",
+    "params": {
+      "token_size": 500,
+      "overlap": 50
+    },
+    "chunk_count": 78,
+    "tokens": {
+      "min": 60,
+      "max": 500,
+      "avg": 406.9
+    },
+    "chars": {
+      "min": 210,
+      "max": 2408,
+      "avg": 1412.8
+    },
+    "gold_coverage": "20/20 (100.0%)",
+    "gold_coverage_pct": 100.0,
+    "missed_question_ids": []
+  },
+  "B": {
+    "name": "Strategy B: Recursive Token Chunking",
+    "params": {
+      "max_tokens": 500,
+      "overlap": 50,
+      "separators": [
+        "\\n\\n",
+        "\\n",
+        ". ",
+        " "
+      ]
+    },
+    "chunk_count": 88,
+    "tokens": {
+      "min": 13,
+      "max": 499,
+      "avg": 333.9
+    },
+    "chars": {
+      "min": 64,
+      "max": 2350,
+      "avg": 1164.0
+    },
+    "gold_coverage": "20/20 (100.0%)",
+    "gold_coverage_pct": 100.0,
+    "missed_question_ids": []
+  },
+  "C": {
+    "name": "Strategy C: Section-Based Token Chunking",
+    "params": {
+      "max_tokens": 500,
+      "overlap": 50,
+      "header_boundary_aware": true
+    },
+    "chunk_count": 78,
+    "tokens": {
+      "min": 60,
+      "max": 501,
+      "avg": 406.9
+    },
+    "chars": {
+      "min": 210,
+      "max": 2408,
+      "avg": 1412.9
+    },
+    "gold_coverage": "20/20 (100.0%)",
+    "gold_coverage_pct": 100.0,
+    "missed_question_ids": []
+  },
+  "D": {
+    "name": "Strategy D: Paragraph-Based Token Chunking (No Filter)",
+    "params": {
+      "max_tokens": 500,
+      "overlap": 50,
+      "filter": false
+    },
+    "chunk_count": 88,
+    "tokens": {
+      "min": 13,
+      "max": 500,
+      "avg": 337.4
+    },
+    "chars": {
+      "min": 64,
+      "max": 2350,
+      "avg": 1170.4
+    },
+    "gold_coverage": "20/20 (100.0%)",
+    "gold_coverage_pct": 100.0,
+    "missed_question_ids": []
+  },
+  "E": {
+    "name": "Strategy E: Paragraph-Based Token Chunking + Metadata Filter",
+    "params": {
+      "max_tokens": 500,
+      "overlap": 50,
+      "filter": true,
+      "filter_field": "section"
+    },
+    "chunk_count": 88,
+    "tokens": {
+      "min": 13,
+      "max": 500,
+      "avg": 337.4
+    },
+    "chars": {
+      "min": 64,
+      "max": 2350,
+      "avg": 1170.4
+    },
+    "gold_coverage": "20/20 (100.0%)",
+    "gold_coverage_pct": 100.0,
+    "missed_question_ids": []
+  }
+}

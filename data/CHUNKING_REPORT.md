@@ -1,0 +1,13 @@
+# Báo cáo Phân Tích Thực Nghiệm 5 Chiến Lược Token-Based Chunking (BGE-M3)
+**Thời gian sinh:** 2026-11-14 11:18:33 | **Trang nguồn:** 31 | **Tổng ký tự chuẩn hóa:** 102,536
+
+---
+## 1. Bảng So Sánh Tổng Hợp 5 Chiến Lược Token
+
+| Chiến lược | Thuật toán & Tham số | Số Chunks | Tokens Min/Max/TB | Ký tự Min/Max/TB | Độ phủ Evidence Gold (20 câu) | Tệp Chunk JSON | Tệp Markdown Trực Quan |
+|---|---|:---:|:---:|:---:|:---:|---|---|
+| **Strategy A: Fixed-Size Token Window** | `{'token_size': 500, 'overlap': 50}` | **78** | 60/500/406.9 | 210/2408/1412.8 | **20/20 (100.0%)** | [`chunks_strategy_a.json`](file:///c:/HUST/VIN/lab6/K5-L3-Day06-DataIngestionEngineering/artifacts/chunks/chunks_strategy_a.json) | [`strategy_a_fixed.md`](file:///c:/HUST/VIN/lab6/K5-L3-Day06-DataIngestionEngineering/artifacts/chunks_markdown/strategy_a_fixed.md) |
+| **Strategy B: Recursive Token Chunking** | `{'max_tokens': 500, 'overlap': 50, 'separators': ['\\n\\n', '\\n', '. ', ' ']}` | **88** | 13/499/333.9 | 64/2350/1164.0 | **20/20 (100.0%)** | [`chunks_strategy_b.json`](file:///c:/HUST/VIN/lab6/K5-L3-Day06-DataIngestionEngineering/artifacts/chunks/chunks_strategy_b.json) | [`strategy_b_recursive.md`](file:///c:/HUST/VIN/lab6/K5-L3-Day06-DataIngestionEngineering/artifacts/chunks_markdown/strategy_b_recursive.md) |
+| **Strategy C: Section-Based Token Chunking** | `{'max_tokens': 500, 'overlap': 50, 'header_boundary_aware': True}` | **78** | 60/501/406.9 | 210/2408/1412.9 | **20/20 (100.0%)** | [`chunks_strategy_c.json`](file:///c:/HUST/VIN/lab6/K5-L3-Day06-DataIngestionEngineering/artifacts/chunks/chunks_strategy_c.json) | [`strategy_c_section.md`](file:///c:/HUST/VIN/lab6/K5-L3-Day06-DataIngestionEngineering/artifacts/chunks_markdown/strategy_c_section.md) |
+| **Strategy D: Paragraph-Based Token Chunking (No Filter)** | `{'max_tokens': 500, 'overlap': 50, 'filter': False}` | **88** | 13/500/337.4 | 64/2350/1170.4 | **20/20 (100.0%)** | [`chunks_strategy_d.json`](file:///c:/HUST/VIN/lab6/K5-L3-Day06-DataIngestionEngineering/artifacts/chunks/chunks_strategy_d.json) | [`strategy_d_paragraph.md`](file:///c:/HUST/VIN/lab6/K5-L3-Day06-DataIngestionEngineering/artifacts/chunks_markdown/strategy_d_paragraph.md) |
+| **Strategy E: Paragraph-Based Token Chunking + Metadata Filter** | `{'max_tokens': 500, 'overlap': 50, 'filter': True, 'filter_field': 'section'}` | **88** | 13/500/337.4 | 64/2350/1170.4 | **20/20 (100.0%)** | [`chunks_strategy_e.json`](file:///c:/HUST/VIN/lab6/K5-L3-Day06-DataIngestionEngineering/artifacts/chunks/chunks_strategy_e.json) | [`strategy_e_paragraph_filter.md`](file:///c:/HUST/VIN/lab6/K5-L3-Day06-DataIngestionEngineering/artifacts/chunks_markdown/strategy_e_paragraph_filter.md) |

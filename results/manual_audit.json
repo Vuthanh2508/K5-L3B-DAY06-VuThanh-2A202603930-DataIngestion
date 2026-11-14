@@ -1,0 +1,36 @@
+{
+  "timestamp": "2026-11-14T04:27:00Z",
+  "evaluator": "Author manual audit (self-assessed with declared bias risk)",
+  "coherence": {
+    "scale": "0 = cut mid-thought / 1 = partial context / 2 = fully coherent and self-contained",
+    "positions_checked": 10,
+    "strategy_scores": {
+      "A": {"scores": [1, 1, 2, 1, 1, 1, 1, 1, 2, 2], "average": 1.3},
+      "B": {"scores": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2], "average": 2.0},
+      "C": {"scores": [2, 1, 2, 2, 2, 1, 2, 2, 2, 2], "average": 1.8},
+      "D": {"scores": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2], "average": 2.0},
+      "E": {"scores": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2], "average": 2.0}
+    }
+  },
+  "metadata_usefulness": {
+    "records_checked": "5 test queries x top-3 hits = 15 records per strategy",
+    "fields_checked": ["source", "page", "doc_page", "section", "chunk_id"],
+    "completeness": {
+      "A": "15/15", "B": "15/15", "C": "15/15", "D": "15/15", "E": "15/15"
+    },
+    "filter_compliance": {
+      "A": "1/5", "B": "1/5", "C": "1/5", "D": "1/5", "E": "5/5"
+    }
+  },
+  "grounding_quality": {
+    "scale": "0 = no evidence / 1 = partial evidence / 2 = sufficient to ground answer directly",
+    "queries_checked": 5,
+    "strategy_scores": {
+      "A": {"scores": [1, 1, 2, 1, 2], "counts": {"0": 0, "1": 3, "2": 2}, "average": 1.4},
+      "B": {"scores": [1, 1, 2, 1, 2], "counts": {"0": 0, "1": 3, "2": 2}, "average": 1.4},
+      "C": {"scores": [1, 1, 2, 1, 2], "counts": {"0": 0, "1": 3, "2": 2}, "average": 1.4},
+      "D": {"scores": [1, 1, 2, 1, 2], "counts": {"0": 0, "1": 3, "2": 2}, "average": 1.4},
+      "E": {"scores": [1, 1, 2, 1, 2], "counts": {"0": 0, "1": 3, "2": 2}, "average": 1.4}
+    }
+  }
+}

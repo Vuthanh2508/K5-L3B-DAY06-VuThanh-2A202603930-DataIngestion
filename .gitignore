@@ -8,3 +8,8 @@ __pycache__/
 .DS_Store
 .pytest_cache/
 *.sqlite
+
+# Qdrant Docker & Local DB storage (binary storage files, regenerated via pipeline)
+data/qdrant_storage/
+data/qdrant_db/
+

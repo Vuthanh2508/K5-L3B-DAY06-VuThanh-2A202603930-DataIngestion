@@ -1,47 +1,82 @@
 # Day 06 · Data Ingestion Engineering
 
-**Lab cá nhân** · **4 giờ** · **Dữ liệu tự chọn**
+**Học viên:** Vũ Thành  
+**MSSV:** 2A202603930 — **Lớp:** L3B  
+**Chủ đề & Corpus:** Báo cáo tài chính quý 2/2023 của Netflix, Inc. (SEC Form 10-Q — `NETFLIX_2023Q2_10Q-3-33.pdf`, 31 trang nội dung hữu ích).  
+**Báo cáo cá nhân chi tiết:** [report/individual/2A202603930_VuThanh.md](report/individual/2A202603930_VuThanh.md)
 
-Biến tài liệu thành kho tri thức có thể truy xuất cho AI agent, rồi đo xem cách chuẩn bị dữ liệu nào hiệu quả nhất.
+---
 
-| 📄 Dữ liệu | 🧩 Chiến lược | 🎯 Benchmark |
-|---|---|---|
-| Tối thiểu **30 trang nội dung** | Tối thiểu **3 cấu hình** | Tối thiểu **20 câu hỏi** |
+## 🚀 Hướng Dẫn Tái Hiện (Quickstart & Reproduction)
 
-## Bắt đầu nhanh
+### 1. Cài đặt môi trường Python
+Khuyến nghị sử dụng Python 3.10+:
+```bash
+pip install -r requirements.txt
+```
 
-Dùng [starter PostgreSQL + pgvector](starter/README.md) để dựng database và hoàn thiện các hàm TODO, hoặc tự chọn vector store tương đương. Starter chỉ là khung: **bạn tự hiện thực pipeline và benchmark**.
+### 2. Khởi động Qdrant Vector Database qua Docker
+Hệ thống sử dụng Qdrant v1.19.2 được cấu hình sẵn trong `docker-compose.yml`:
+```bash
+docker compose up -d
+```
+* Container: `day06-qdrant` chạy cổng `6333` (REST API) và `6334` (gRPC).
+* Dữ liệu được lưu trữ bền vững tại `./data/qdrant_storage`.
+* *(Ghi chú: Nếu môi trường không có Docker, hệ thống sẽ tự động fallback về embedded local disk mode tại `./data/qdrant_db`).*
 
-## 1. Xây pipeline
+### 3. Chạy Toàn Bộ Pipeline Đánh Giá
+Chạy 1 lệnh duy nhất để thực thi toàn bộ pipeline (Parse $\to$ Normalize $\to$ Chunking 5 cấu hình $\to$ Embeddings GPU $\to$ Upsert Qdrant $\to$ Benchmark 20 queries $\to$ Export kết quả):
+```bash
+python -m starter.src.run
+```
 
-![Đọc tài liệu, chuẩn hóa, chia chunk, tạo vector, lưu và kiểm tra](assets/ingestion-pipeline.svg)
+---
 
-Chọn tài liệu được phép sử dụng; giữ **ID tài liệu, nguồn, trang/vị trí** và metadata phù hợp. Dùng embedding model thật qua API hoặc chạy local; lưu và truy xuất bằng pgvector, Qdrant, Chroma hoặc một store tương đương.
+## 📊 Kết Quả Tóm Tắt 5 Chiến Lược Chunking & Ingestion
 
-## 2. So sánh và đánh giá
+Tất cả các chiến lược đều sử dụng tokenizer `BAAI/bge-m3` với ngân sách thống nhất `max_tokens = 500, overlap = 50` để đảm bảo thử nghiệm kiểm soát công bằng:
 
-![Ba chiến lược được đánh giá trên cùng corpus và benchmark dev/test](assets/benchmark-workflow.svg)
+| Chiến Lược | Mô Tả Kỹ Thuật | Số Chunks | Dev Hit@1 (n=15) | Dev Hit@3 (n=15) | Test Hit@1 (n=5) | Test Hit@3 (n=5) | Tuân thủ Filter | Thời Gian |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Strategy A** | Fixed-size Token Window (500 tokens) | 78 | 10/15 (66.7%) | 13/15 (86.7%) | 0/5 (0.0%) | 2/5 (40.0%) | 1/5 | 1.25s |
+| **Strategy B** | Recursive Token Chunking ([\n\n, \n, . , ' ']) | 88 | **12/15 (80.0%)** | **13/15 (86.7%)** | 0/5 (0.0%) | 2/5 (40.0%) | 1/5 | 1.59s |
+| **Strategy C** | Section-based Token Chunking (Note/Item) | 78 | 10/15 (66.7%) | 13/15 (86.7%) | 0/5 (0.0%) | 2/5 (40.0%) | 1/5 | 1.14s |
+| **Strategy D** | Paragraph-based Token Chunking (No Filter) | 88 | **12/15 (80.0%)** | **13/15 (86.7%)** | 0/5 (0.0%) | 2/5 (40.0%) | 1/5 | 1.19s |
+| **Strategy E** | Paragraph-based Token + Metadata Filter | 88 | **12/15 (80.0%)** | **13/15 (86.7%)** | **1/5 (20.0%)** | **2/5 (40.0%)** | **5/5 (100%)** | **1.00s ⚡** |
 
-Dùng cùng dữ liệu, model và câu hỏi cho cả ba cấu hình. Tách **15 câu dev / 5 câu test** trước khi chạy; chọn cấu hình trên dev, rồi đánh giá test sau khi cố định. Mỗi câu hỏi cần có đoạn bằng chứng và trang nguồn; thiết kế bộ câu hỏi và đánh giá theo [BENCHMARK.md](BENCHMARK.md).
+---
 
-Đánh giá theo năm khía cạnh: **độ chính xác truy xuất**, **tính mạch lạc của chunk**, **tính hữu dụng của metadata**, **chất lượng grounding** và **tác động của chiến lược dữ liệu**. Giải thích lựa chọn bằng kết quả, ví dụ lỗi và các đánh đổi.
+## 📁 Cấu Trúc Thư Mục Nộp Bài
 
-## 3. Chuẩn bị bài nộp
-
-1. Chạy pipeline và lưu cấu hình, kết quả top-3, trace cùng nhãn đánh giá thủ công.
-2. Điền [thông tin học viên](STUDENT.md), [nhật ký thí nghiệm](artifacts/experiment_log.csv) và bản sao [mẫu báo cáo cá nhân](report/individual/MSSV_HoTen.md).
-3. Kiểm tra mã nguồn, cách chạy, manifest dữ liệu và checklist trong [SUBMISSION.md](SUBMISSION.md).
-
-## Tài liệu hướng dẫn
-
-| Bạn cần tìm | Tài liệu |
-|---|---|
-| Setup baseline PostgreSQL + pgvector | [starter/README.md](starter/README.md) |
-| Các bước làm và cách tính chỉ số | [GUIDE.md](GUIDE.md) |
-| Tiến độ trong 4 giờ | [CHECKPOINTS.md](CHECKPOINTS.md) |
-| Năm tiêu chí benchmark và bộ câu hỏi | [BENCHMARK.md](BENCHMARK.md) |
-| Tiêu chí chấm điểm | [RUBRIC.md](RUBRIC.md) |
-| Quy tắc sử dụng dữ liệu, AI và API | [RULES.md](RULES.md) |
-| Cách nộp bài | [SUBMISSION.md](SUBMISSION.md) |
-
-[data/format-example.json](data/format-example.json) chỉ minh họa định dạng, không phải corpus đủ điều kiện. Phần xử lý và benchmark do bạn tự hiện thực; không bắt buộc xây chatbot.
+```text
+├── STUDENT.md                                      # Thông tin học viên và mã commit chốt bài
+├── requirements.txt                                # Danh sách thư viện phụ thuộc
+├── docker-compose.yml                              # Cấu hình Qdrant Vector Store Container
+├── NETFLIX_2023Q2_10Q-3-33.pdf                     # Tài liệu nguồn SEC Form 10-Q (31 trang)
+├── starter/src/                                    # Toàn bộ mã nguồn pipeline
+│   ├── ingestion.py                                # Đọc PDF (Docling OCR) & Chuẩn hóa NFKC
+│   ├── chunking.py                                 # 5 thuật toán chunking theo BGE-M3 Tokenizer
+│   ├── embeddings.py                               # BGE-M3 Embedder (GPU FP16, 1024-d)
+│   ├── store.py                                    # Qdrant Vector Store client & Payload Filter
+│   ├── evaluation.py                               # Đánh giá Hit@1, Hit@3, Filter compliance
+│   └── run.py                                      # Orchestration script chạy end-to-end
+├── data/ & artifacts/                              # Dữ liệu trung gian đồng bộ 100%
+│   ├── manifest.json                               # Khai báo nguồn, quyền, thống kê 31 trang
+│   ├── parsed_corpus.md / parsed_document.md       # Văn bản đã OCR và chuẩn hóa sạch
+│   ├── pages_markdown/                             # 31 file markdown cho 31 trang PDF
+│   ├── chunks/                                     # File JSON 5 chiến lược chunk (A -> E)
+│   ├── chunks_markdown/                            # Bản hiển thị trực quan các chunk theo trang
+│   ├── CHUNKING_REPORT.md                          # Báo cáo thống kê phân bổ độ dài chunk
+│   └── experiment_log.csv                          # Nhật ký thí nghiệm 5 cấu hình
+├── benchmark/                                      # Bộ benchmark đánh giá
+│   ├── gold_qa.json                                # 20 câu hỏi (15 dev / 5 test, 5 metadata filter)
+│   ├── BENCHMARK_GOLD.md                           # Thuyết minh chi tiết 20 câu hỏi & bằng chứng
+│   └── validate_gold.py                            # Script tự động kiểm chứng 20/20 câu với PDF
+├── results/                                        # Kết quả truy xuất & Đánh giá
+│   ├── traces.json                                 # Vết truy xuất chi tiết từng query
+│   ├── benchmark_summary.json                      # Tổng hợp chỉ số Hit@1, Hit@3
+│   ├── MANUAL_AUDIT.md                             # Bảng chấm thủ công Coherence, Metadata, Grounding
+│   └── manual_audit.json                           # Dữ liệu chấm thủ công dạng JSON
+└── report/individual/
+    └── 2A202603930_VuThanh.md                      # Báo cáo cá nhân hoàn chỉnh theo Rubric
+```

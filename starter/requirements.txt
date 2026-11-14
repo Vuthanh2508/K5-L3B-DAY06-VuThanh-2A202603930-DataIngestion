@@ -1,4 +1,11 @@
-# Core setup and PDF parsing. Choose and install an embedding SDK separately.
-psycopg[binary]==3.3.8
-pypdf>=5,<7
-python-dotenv>=1,<2
+# Dependencies for Day 06 Data Ingestion Engineering
+qdrant-client>=1.12.0
+FlagEmbedding>=1.2.0
+transformers>=4.40.0
+torch>=2.0.0
+docling>=2.0.0
+pymupdf>=1.24.0
+pypdf>=5.0.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+tqdm>=4.66.0

@@ -5,5 +5,5 @@
 - Lớp: L3B
 - Chủ đề và corpus: Netflix Q2 2023 SEC Form 10-Q Financial Report (NETFLIX_2023Q2_10Q-3-33.pdf, 31 content pages)
 - Repo bài nộp: https://github.com/Vuthanh2508/K5-L3B-DAY06-VuThanh-2A202603930-DataIngestion
-- Commit chốt bài: 1638a37f92c80192c2e8aecdec373159c20253d1
+- Commit chốt bài: 35e7849a46e9270fc619d2d07a33e856d978f3d9
 
